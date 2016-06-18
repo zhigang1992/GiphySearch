@@ -8,11 +8,16 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        Injector.resolve(GiphyAPI.self)
+            .trending()
+            .subscribe({
+                print($0)
+        })
     }
 
     override func didReceiveMemoryWarning() {
