@@ -32,7 +32,8 @@ class HomeViewModel {
             .switchLatest()
         
         isSearching.asObservable()
-            .flatMap({ $0 ? searching : trending })
+            .map({ $0 ? searching : trending })
+            .switchLatest()
             .subscribeNext({[unowned self] in
                 self.giphys.value = $0
             })
