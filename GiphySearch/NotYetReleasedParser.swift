@@ -11,8 +11,6 @@
 // It's WIP
 import Foundation
 
-
-
 extension String : ErrorType {
     
 }

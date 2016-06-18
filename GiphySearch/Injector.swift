@@ -13,7 +13,7 @@ struct Injector {
     static func initialRegisteration(container: Container) {
         container.register(ViewModel.self) { _ in ViewModel() }
         container.register(NSURLSession.self) { _ in .sharedSession() }
-        container.register(GiphyAPI.self, factory: { _ in GiphyAPI() })
+        container.register(GiphyAPIType.self, factory: { _ in GiphyAPI() })
     }
     
     static private(set) var sharedContainer = Container(registeringClosure: Injector.initialRegisteration)
