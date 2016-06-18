@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxDataSources
 import YYWaterflowLayout
+import NukeAnimatedImagePlugin
 
 class HomeViewController: UIViewController, YYWaterflowLayoutDelegate {
 
@@ -65,12 +66,18 @@ class HomeViewController: UIViewController, YYWaterflowLayoutDelegate {
     }
     
     private func bindDataToUI() {
+        
         viewModel.giphys.asDriver()
             .distinctUntilChanged(==)
             .drive(self.collectionView.rx_itemsWithCellFactory) { collectionView, index, giphy in
                 let indexPath = NSIndexPath(forItem: index, inSection: 0)
-                let cell = collectionView.dequeueReusableCellWithReuseIdentifier(R.reuseIdentifier.giphyCell, forIndexPath: indexPath)!
-                cell.tagLabel.text = giphy.id
+                let cell = collectionView.dequeueReusableCellWithReuseIdentifier(
+                    R.reuseIdentifier.giphyCell, forIndexPath: indexPath
+                )!
+                cell.tagLabel.hidden = giphy.tags.count == 0
+                cell.tagLabel.text = giphy.tags.joinWithSeparator(", ")
+                cell.imageView.image = nil
+                cell.imageView.nk_setImageWith(NSURL(string: giphy.images)!)
                 return cell
             }
             .addDisposableTo(self.disposeBag)

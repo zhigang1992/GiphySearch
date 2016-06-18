@@ -16,6 +16,11 @@ target 'GiphySearch' do
 
   pod 'Swinject'
   pod 'YYWaterflowLayout'
+  
+  pod 'Nuke'
+  pod 'Nuke-Alamofire-Plugin'
+  pod 'Nuke-AnimatedImage-Plugin'
+
 
   target 'GiphySearchTests' do
     inherit! :search_paths

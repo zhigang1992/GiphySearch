@@ -1,6 +1,15 @@
 PODS:
+  - Alamofire (3.4.0)
   - Curry (2.2.0)
+  - FLAnimatedImage (1.0.12)
   - Nimble (4.0.1)
+  - Nuke (3.1.0)
+  - Nuke-Alamofire-Plugin (0.6.0):
+    - Alamofire (~> 3.0)
+    - Nuke (~> 3.0)
+  - Nuke-AnimatedImage-Plugin (1.0.0):
+    - FLAnimatedImage (~> 1.0)
+    - Nuke (~> 3.0)
   - Quick (0.9.2)
   - R.swift (2.3.0):
     - R.swift.Library (~> 2.1.0)
@@ -19,6 +28,9 @@ PODS:
 DEPENDENCIES:
   - Curry
   - Nimble
+  - Nuke
+  - Nuke-Alamofire-Plugin
+  - Nuke-AnimatedImage-Plugin
   - Quick
   - R.swift
   - RxBlocking
@@ -29,8 +41,13 @@ DEPENDENCIES:
   - YYWaterflowLayout
 
 SPEC CHECKSUMS:
+  Alamofire: c19a627cefd6a95f840401c49ab1f124e07f54ee
   Curry: c22d80fff7f5a4b1bbd531455c3e2dbb099658a3
+  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   Nimble: 0f3c8b8b084cda391209c3c5efbb48bedeeb920a
+  Nuke: e93fa6ad10472c2d46ddca3a9dc92fd65027e40e
+  Nuke-Alamofire-Plugin: 410bdb98360c586f8ca736e04dbba78fa1294aae
+  Nuke-AnimatedImage-Plugin: 5a35f5a38dcd6c9559225de1c80ac7e758bd0ef8
   Quick: 18d057bc66451eedd5d1c8dc99ba2a5db6e60226
   R.swift: 38b2191a603c3d491a09baddfb4ccc7aa9be4d9d
   R.swift.Library: e5e077ed04f6867a95676af491650091b23518e9
@@ -41,6 +58,6 @@ SPEC CHECKSUMS:
   Swinject: 3debc5ac926dcd1be00947265a9db7a5f31b272a
   YYWaterflowLayout: 2d575ed8aabcd3ef545c99b8657c56ba175784ff
 
-PODFILE CHECKSUM: 28d7730498b9fed2b8324a2e600b2ad86e109085
+PODFILE CHECKSUM: dc6dc4459003cba87a1d6c5c01fdbfe8e4c84317
 
 COCOAPODS: 1.0.1

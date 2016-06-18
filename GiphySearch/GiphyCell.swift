@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import FLAnimatedImage
 
 class GiphyCell: UICollectionViewCell {
     @IBOutlet weak var tagLabel: UILabel!
+    @IBOutlet weak var imageView: FLAnimatedImageView!
     
 }

@@ -17,6 +17,12 @@ struct Giphy {
     let size: CGSize
 }
 
+extension Giphy {
+    var tags: [String] {
+        return Array(slug.componentsSeparatedByString("-").dropLast(1)).map({ $0.uppercaseString })
+    }
+}
+
 extension CGSize: Parsable {
     static var parser: Parser<CGSize> {
         let assemable: Double -> Double -> CGSize = curry(self.init)

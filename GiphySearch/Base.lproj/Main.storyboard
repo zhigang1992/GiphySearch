@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Giphy-->
@@ -35,9 +34,16 @@
                                             <rect key="frame" x="0.0" y="0.0" width="150" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aHz-ew-0Zz">
-                                                    <rect key="frame" x="8" y="171" width="42" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Fco-yh-hV5" customClass="FLAnimatedImageView">
+                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="200"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="aHz-ew-0Zz">
+                                                    <rect key="frame" x="0.0" y="179.5" width="31" height="20.5"/>
+                                                    <color key="backgroundColor" white="1" alpha="0.59999999999999998" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="oac-xt-aNT"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -46,10 +52,16 @@
                                         </view>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="aHz-ew-0Zz" firstAttribute="bottom" secondItem="ZtW-wx-lFt" secondAttribute="bottomMargin" id="SdH-W9-7mq"/>
-                                            <constraint firstItem="aHz-ew-0Zz" firstAttribute="leading" secondItem="ZtW-wx-lFt" secondAttribute="leadingMargin" id="ioH-61-3rA"/>
+                                            <constraint firstAttribute="bottom" secondItem="Fco-yh-hV5" secondAttribute="bottom" id="1la-5d-Ydh"/>
+                                            <constraint firstItem="Fco-yh-hV5" firstAttribute="leading" secondItem="ZtW-wx-lFt" secondAttribute="leading" id="EhM-hB-HRG"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="aHz-ew-0Zz" secondAttribute="trailing" id="FKp-Ah-NBY"/>
+                                            <constraint firstItem="Fco-yh-hV5" firstAttribute="top" secondItem="ZtW-wx-lFt" secondAttribute="top" id="HyQ-z3-IJA"/>
+                                            <constraint firstItem="aHz-ew-0Zz" firstAttribute="bottom" secondItem="ZtW-wx-lFt" secondAttribute="bottom" id="SdH-W9-7mq"/>
+                                            <constraint firstAttribute="trailing" secondItem="Fco-yh-hV5" secondAttribute="trailing" id="gqQ-cc-yW7"/>
+                                            <constraint firstItem="aHz-ew-0Zz" firstAttribute="leading" secondItem="ZtW-wx-lFt" secondAttribute="leading" id="ioH-61-3rA"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="imageView" destination="Fco-yh-hV5" id="blx-sX-gtu"/>
                                             <outlet property="tagLabel" destination="aHz-ew-0Zz" id="JHd-lI-rpT"/>
                                         </connections>
                                     </collectionViewCell>
