@@ -46,18 +46,18 @@ class HomeViewController: UIViewController, YYWaterflowLayoutDelegate {
         self.waterFlowLayout.delegate = self
         self.waterFlowLayout.columnMargin = 10
         self.waterFlowLayout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        self.waterFlowLayout.columnsCount = 2
+        self.waterFlowLayout.columnsCount = floor((self.view.bounds.width / 160))
         self.waterFlowLayout.rowMargin = 10
         
         let searchBar = self.searchController.searchBar
+        searchBar.searchBarStyle = .Minimal
         self.view.addSubview(searchBar)
-        let constraints: [NSLayoutConstraint] = [
-            searchBar.leftAnchor.constraintEqualToAnchor(self.view.leftAnchor),
-            searchBar.rightAnchor.constraintEqualToAnchor(self.view.rightAnchor),
-            searchBar.bottomAnchor.constraintEqualToAnchor(self.collectionView.topAnchor)
-        ]
-        constraints.forEach({$0.active = true})
-        self.view.addConstraints(constraints)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let width = self.view.bounds.width
+        self.searchController.searchBar.frame = CGRect(x: 0, y: 0, width: width, height: 44)
     }
     
     func waterflowLayout(waterflowLayout: YYWaterflowLayout!, heightForWidth width: CGFloat, atIndexPath indexPath: NSIndexPath!) -> CGFloat {
@@ -65,19 +65,27 @@ class HomeViewController: UIViewController, YYWaterflowLayoutDelegate {
         return giphy.size.height / giphy.size.width * width
     }
     
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        self.waterFlowLayout.columnsCount = floor((size.width / 160))
+        self.collectionView.collectionViewLayout.invalidateLayout()
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+}
+
+extension HomeViewController {
     private func bindDataToUI() {
-        
         viewModel.giphys.asDriver()
             .distinctUntilChanged(==)
             .drive(self.collectionView.rx_itemsWithCellFactory) { collectionView, index, giphy in
                 let indexPath = NSIndexPath(forItem: index, inSection: 0)
                 let cell = collectionView.dequeueReusableCellWithReuseIdentifier(
                     R.reuseIdentifier.giphyCell, forIndexPath: indexPath
-                )!
-                cell.tagLabel.hidden = giphy.tags.count == 0
-                cell.tagLabel.text = giphy.tags.joinWithSeparator(", ")
-                cell.imageView.image = nil
-                cell.imageView.nk_setImageWith(NSURL(string: giphy.images)!)
+                    )!
+                cell.render(giphy)
                 return cell
             }
             .addDisposableTo(self.disposeBag)
@@ -87,7 +95,7 @@ class HomeViewController: UIViewController, YYWaterflowLayoutDelegate {
         Observable.of(
             self.searchController.rx_willPresent.map({true}),
             self.searchController.rx_willDismiss.map({false})
-        ).merge()
+            ).merge()
             .bindTo(viewModel.isSearching)
             .addDisposableTo(self.disposeBag)
         
@@ -101,13 +109,13 @@ class HomeViewController: UIViewController, YYWaterflowLayoutDelegate {
                 self.refreshControl.endRefreshing()
                 let vc = UIAlertController(title: "Error", message: "\(error)", preferredStyle: .Alert)
                 self.presentViewController(vc, animated: true, completion: nil)
-            })
+                })
             .retry()
             .subscribeNext({[unowned self] _ in
                 self.refreshControl.endRefreshing()
-            })
+                })
             .addDisposableTo(self.disposeBag)
-
+        
         self.collectionView
             .rx_itemSelected
             .map({[unowned self] in self.viewModel.giphys.value[$0.row] })
@@ -117,11 +125,6 @@ class HomeViewController: UIViewController, YYWaterflowLayoutDelegate {
                 }
             })
             .addDisposableTo(self.disposeBag)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 }
 

@@ -13,4 +13,11 @@ class GiphyCell: UICollectionViewCell {
     @IBOutlet weak var tagLabel: UILabel!
     @IBOutlet weak var imageView: FLAnimatedImageView!
     
+    func render(giphy: Giphy) {
+        self.tagLabel.hidden = giphy.tags.count == 0
+        self.tagLabel.text = giphy.tags.joinWithSeparator(", ")
+        self.imageView.animatedImage = nil
+        self.imageView.image = nil
+        self.imageView.nk_setImageWith(NSURL(string: giphy.images)!)
+    }
 }

@@ -21,6 +21,9 @@ target 'GiphySearch' do
   pod 'Nuke-Alamofire-Plugin'
   pod 'Nuke-AnimatedImage-Plugin'
 
+  pod 'RxAlamofire'
+  pod 'Alamofire'
+  pod 'AlamofireNetworkActivityIndicator'
 
   target 'GiphySearchTests' do
     inherit! :search_paths

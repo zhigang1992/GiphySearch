@@ -16,7 +16,7 @@ import RxBlocking
 
 extension Giphy {
     static func fakeGiphyWith(id id:String) -> Giphy {
-        return Giphy(id: id, slug: "slug", url: "url", images: "imageurl")
+        return Giphy(id: id, slug: "slug", url: "url", images: "imageurl", size: CGSize(width: 0, height: 0))
     }
 }
 

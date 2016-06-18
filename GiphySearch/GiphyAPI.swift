@@ -10,21 +10,19 @@ import Foundation
 import RxSwift
 import RxCocoa
 
+import RxAlamofire
+
 protocol GiphyAPIType {
     func trending() -> Observable<[Giphy]>
     func search(keyword:String) -> Observable<[Giphy]>
 }
 
-private let treandingAPI = NSURL(string: "https://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC")!
-
-private func searchAPI(keyword: String) -> NSURL {
+private func searchAPI(keyword: String) -> String {
     let keywordQuery = keyword.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
-    let url = "https://api.giphy.com/v1/gifs/search?q=\(keywordQuery ?? "")&api_key=dc6zaTOxFJmzC"
-    return NSURL(string: url)!
+    return "https://api.giphy.com/v1/gifs/search?q=\(keywordQuery ?? "")&api_key=dc6zaTOxFJmzC"
 }
 
 struct GiphyAPI : GiphyAPIType {
-    let session: NSURLSession = Injector.resolve(NSURLSession.self)
     
     let responseParser = dictionaryParser(
         key: "data",
@@ -32,11 +30,11 @@ struct GiphyAPI : GiphyAPIType {
     )
     
     func trending() -> Observable<[Giphy]> {
-        return session.rx_JSON(treandingAPI)
+        return JSON(.GET, "https://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC")
             .flatMap({ self.responseParser.parse($0).toObservable() })
     }
     func search(keywords: String) -> Observable<[Giphy]> {
-        return session.rx_JSON(searchAPI(keywords))
+        return JSON(.GET, searchAPI(keywords))
             .flatMap({self.responseParser.parse($0).toObservable()})
     }
 }
