@@ -10,9 +10,9 @@ import UIKit
 import RxSwift
 import RxDataSources
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, UICollectionViewDelegateFlowLayout {
 
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -33,16 +33,34 @@ class HomeViewController: UIViewController {
     private func setupUI() {
         self.searchController.dimsBackgroundDuringPresentation = false
         self.searchController.hidesNavigationBarDuringPresentation = false
-        self.tableView.tableHeaderView = self.searchController.searchBar
-        self.tableView.addSubview(refreshControl)
+        
+        self.collectionView.delegate = self
+        self.collectionView.addSubview(refreshControl)
+        self.collectionView.alwaysBounceVertical = true
+        
+        let searchBar = self.searchController.searchBar
+        self.view.addSubview(searchBar)
+        let constraints: [NSLayoutConstraint] = [
+            searchBar.leftAnchor.constraintEqualToAnchor(self.view.leftAnchor),
+            searchBar.rightAnchor.constraintEqualToAnchor(self.view.rightAnchor),
+            searchBar.bottomAnchor.constraintEqualToAnchor(self.collectionView.topAnchor)
+        ]
+        constraints.forEach({$0.active = true})
+        self.view.addConstraints(constraints)
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let width = (self.view.bounds.width - 30) / 2
+        return CGSize(width: width, height: 200)
     }
     
     private func bindDataToUI() {
         viewModel.giphys.asDriver()
             .distinctUntilChanged(==)
-            .drive(self.tableView.rx_itemsWithCellFactory) { tableView, index, giphy in
-                let cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.cell)!
-                cell.textLabel?.text = giphy.id
+            .drive(self.collectionView.rx_itemsWithCellFactory) { collectionView, index, giphy in
+                let indexPath = NSIndexPath(forItem: index, inSection: 0)
+                let cell = collectionView.dequeueReusableCellWithReuseIdentifier(R.reuseIdentifier.giphyCell, forIndexPath: indexPath)!
+                cell.tagLabel.text = giphy.id
                 return cell
             }
             .addDisposableTo(self.disposeBag)
@@ -67,11 +85,8 @@ class HomeViewController: UIViewController {
             })
             .addDisposableTo(self.disposeBag)
 
-        self.tableView
+        self.collectionView
             .rx_itemSelected
-            .doOnNext({[unowned self] in
-                self.tableView.deselectRowAtIndexPath($0, animated: true)
-            })
             .map({[unowned self] in self.viewModel.giphys.value[$0.row] })
             .subscribeNext({ giphy in
                 if let url = NSURL(string: giphy.url) {
