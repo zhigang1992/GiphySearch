@@ -10,15 +10,15 @@ import UIKit
 import RxSwift
 import RxDataSources
 
-class HomeViewController: UIViewController, UISearchResultsUpdating, UISearchBarDelegate {
+class HomeViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
-    lazy var searchController = UISearchController(searchResultsController: nil)
+    let searchController = UISearchController(searchResultsController: nil)
     
     let refreshControl = UIRefreshControl()
     
-    let viewModel = Injector.resolve(ViewModel.self)
+    let viewModel = Injector.resolve(HomeViewModel.self)
     
     private let disposeBag = DisposeBag()
 
@@ -27,11 +27,10 @@ class HomeViewController: UIViewController, UISearchResultsUpdating, UISearchBar
         
         setupUI()
         bindDataToUI()
+        bindUIEventToViewModel()
     }
     
     private func setupUI() {
-        self.searchController.searchResultsUpdater = self
-        self.searchController.searchBar.delegate = self
         self.searchController.dimsBackgroundDuringPresentation = false
         self.searchController.hidesNavigationBarDuringPresentation = false
         self.tableView.tableHeaderView = self.searchController.searchBar
@@ -39,64 +38,55 @@ class HomeViewController: UIViewController, UISearchResultsUpdating, UISearchBar
     }
     
     private func bindDataToUI() {
-        let driver = self.viewModel.driver
-        
-        driver
-            .map({$0.isLoading})
-            .bindTo(self.refreshControl.refreshingLens)
-            .addDisposableTo(self.disposeBag)
-        
-        driver
-            .map({$0.isSearching})
-            .bindTo(self.searchController.activeLens)
-            .addDisposableTo(self.disposeBag)
-        
-        driver
-            .map({$0.searchingText})
-            .bindTo(self.searchController.searchBar.textLens)
-            .addDisposableTo(self.disposeBag)
-
-        
-        driver
-            .map({$0.data})
+        viewModel.giphys.asDriver()
             .distinctUntilChanged(==)
             .drive(self.tableView.rx_itemsWithCellFactory) { tableView, index, giphy in
-                return UITableViewCell()
+                let cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.cell)!
+                cell.textLabel?.text = giphy.id
+                return cell
             }
             .addDisposableTo(self.disposeBag)
-
+    }
+    
+    private func bindUIEventToViewModel() {
+        Observable.of(
+            self.searchController.rx_willPresent.map({true}),
+            self.searchController.rx_willDismiss.map({false})
+        ).merge()
+            .bindTo(viewModel.isSearching)
+            .addDisposableTo(self.disposeBag)
         
+        self.searchController.searchBar.rx_text
+            .bindTo(self.viewModel.searchingText)
+            .addDisposableTo(self.disposeBag)
+        
+        self.refreshControl.rx_controlEvent(.ValueChanged)
+            .flatMap({[unowned self] _ in self.viewModel.refresh() })
+            .subscribeNext({[unowned self] _ in
+                self.refreshControl.endRefreshing()
+            })
+            .addDisposableTo(self.disposeBag)
+
+        self.tableView
+            .rx_itemSelected
+            .doOnNext({[unowned self] in
+                self.tableView.deselectRowAtIndexPath($0, animated: true)
+            })
+            .map({[unowned self] in self.viewModel.giphys.value[$0.row] })
+            .subscribeNext({ giphy in
+                if let url = NSURL(string: giphy.url) {
+                    UIApplication.sharedApplication().openURL(url)
+                }
+            })
+            .addDisposableTo(self.disposeBag)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
-        
-    }
 }
 
-private extension UIRefreshControl {
-    var refreshingLens: Lens<Bool> {
-        return Lens(getter: {self.refreshing}, setter: {
-            $0 ? self.beginRefreshing() : self.endRefreshing()
-        })
-    }
-}
-
-private extension UISearchController {
-    var activeLens: Lens<Bool> {
-        return Lens(getter: {self.active}, setter: {self.active = $0})
-    }
-}
-
-private extension UISearchBar {
-    var textLens: Lens<String> {
-        return Lens(getter: {self.text ?? ""}, setter: {self.text = $0})
-    }
-}
 
 extension Giphy: Equatable {}
 
@@ -106,5 +96,3 @@ func ==(left: Giphy, right: Giphy) -> Bool {
         left.slug == right.slug &&
         left.url == right.url
 }
-
-

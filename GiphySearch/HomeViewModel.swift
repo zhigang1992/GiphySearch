@@ -10,18 +10,44 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class ViewModel {
+class HomeViewModel {
     
-    struct State {
-        var isSearching: Bool = false
-        var searchingText: String = ""
-        var isLoading: Bool = false
-        var data: [Giphy] = []
-    }
+    let giphys = Variable<[Giphy]>([])
+    
+    let searchingText = PublishSubject<String>()
+    let isSearching = Variable<Bool>(false)
     
     private let api = Injector.resolve(GiphyAPIType)
     
-    private var state = Variable(State())
+    private let trendingCache = Cache<[Giphy]>()
     
-    lazy var driver: Driver<State> = self.state.asDriver()
+    private let disposeBag = DisposeBag()
+    init(throttle: NSTimeInterval = 1) {
+        
+        let trending = self.trendingCache.get(withFallbackRequest: api.trending())
+        
+        let searching = searchingText.throttle(throttle, scheduler: MainScheduler.instance)
+            .distinctUntilChanged()
+            .map({[unowned self] in $0.isEmpty ? trending : self.api.search($0)})
+            .switchLatest()
+        
+        isSearching.asObservable()
+            .flatMap({ $0 ? searching : trending })
+            .subscribeNext({[unowned self] in
+                self.giphys.value = $0
+            })
+            .addDisposableTo(self.disposeBag)
+    }
+    
+    func refresh() -> Observable<()> {
+        return trendingCache.resetCache()
+            .get(withFallbackRequest: api.trending())
+            .doOnNext({[unowned self] giphys in
+                if !self.isSearching.value {
+                    self.giphys.value = giphys
+                }
+            })
+            .map({_ in ()})
+    }
 }
+

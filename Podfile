@@ -10,7 +10,6 @@ target 'GiphySearch' do
   pod 'RxCocoa'
   pod 'RxDataSources'
 
-  pod 'Argo'
   pod 'Curry'
 
   pod 'R.swift'
@@ -22,6 +21,7 @@ target 'GiphySearch' do
     # Pods for testing
     pod 'Quick'
     pod 'Nimble'
+    pod 'RxBlocking'
   end
 
   target 'GiphySearchUITests' do

@@ -38,16 +38,6 @@
                ReferencedContainer = "container:GiphySearch.xcodeproj">
             </BuildableReference>
          </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0409FEAA1D145707001EBAA3"
-               BuildableName = "GiphySearchUITests.xctest"
-               BlueprintName = "GiphySearchUITests"
-               ReferencedContainer = "container:GiphySearch.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

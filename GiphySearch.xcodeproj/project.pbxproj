@@ -14,14 +14,14 @@
 		0409FE9A1D145707001EBAA3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0409FE981D145707001EBAA3 /* LaunchScreen.storyboard */; };
 		0409FEA51D145707001EBAA3 /* QuickConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0409FEA41D145707001EBAA3 /* QuickConfig.swift */; };
 		0409FEB01D145707001EBAA3 /* GiphySearchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0409FEAF1D145707001EBAA3 /* GiphySearchUITests.swift */; };
+		0423FCC01D155CEE0084FBD6 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0423FCBF1D155CEE0084FBD6 /* Cache.swift */; };
 		0453382E1D14E8B200C5239B /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0453382D1D14E8B200C5239B /* HomeViewModel.swift */; };
 		045338301D14EA5D00C5239B /* GiphyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0453382F1D14EA5D00C5239B /* GiphyAPI.swift */; };
-		045338321D14EA9A00C5239B /* GiphyAPITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045338311D14EA9A00C5239B /* GiphyAPITest.swift */; };
+		045338321D14EA9A00C5239B /* HomeViewModelSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045338311D14EA9A00C5239B /* HomeViewModelSpecs.swift */; };
 		045338361D14EBD000C5239B /* Giphy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045338351D14EBD000C5239B /* Giphy.swift */; };
 		0453383C1D14F0A100C5239B /* NotYetReleasedParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0453383B1D14F0A100C5239B /* NotYetReleasedParser.swift */; };
 		0453383E1D14FCA300C5239B /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0453383D1D14FCA300C5239B /* Result.swift */; };
-		045338401D150DB100C5239B /* Modifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0453383F1D150DB100C5239B /* Modifiable.swift */; };
-		045338421D1512D400C5239B /* RxSwiftExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045338411D1512D400C5239B /* RxSwiftExtension.swift */; };
+		04F7E5B51D15224300E445DF /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F7E5B41D15224300E445DF /* R.generated.swift */; };
 		04FAC7451D14E27800230CF3 /* Injector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FAC7441D14E27800230CF3 /* Injector.swift */; };
 		14B32E654239D09C164A3F2B /* Pods_GiphySearchTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8CB399D083241D2E4B2EF15 /* Pods_GiphySearchTests.framework */; };
 		3E0BAE035A5120D1ED29BBC6 /* Pods_GiphySearchUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3A076BE654A5741DBC60FFA /* Pods_GiphySearchUITests.framework */; };
@@ -59,14 +59,14 @@
 		0409FEAB1D145707001EBAA3 /* GiphySearchUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GiphySearchUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0409FEAF1D145707001EBAA3 /* GiphySearchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiphySearchUITests.swift; sourceTree = "<group>"; };
 		0409FEB11D145707001EBAA3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0423FCBF1D155CEE0084FBD6 /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		0453382D1D14E8B200C5239B /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		0453382F1D14EA5D00C5239B /* GiphyAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiphyAPI.swift; sourceTree = "<group>"; };
-		045338311D14EA9A00C5239B /* GiphyAPITest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiphyAPITest.swift; sourceTree = "<group>"; };
+		045338311D14EA9A00C5239B /* HomeViewModelSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModelSpecs.swift; sourceTree = "<group>"; };
 		045338351D14EBD000C5239B /* Giphy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Giphy.swift; sourceTree = "<group>"; };
 		0453383B1D14F0A100C5239B /* NotYetReleasedParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotYetReleasedParser.swift; sourceTree = "<group>"; };
 		0453383D1D14FCA300C5239B /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
-		0453383F1D150DB100C5239B /* Modifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Modifiable.swift; sourceTree = "<group>"; };
-		045338411D1512D400C5239B /* RxSwiftExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxSwiftExtension.swift; sourceTree = "<group>"; };
+		04F7E5B41D15224300E445DF /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		04FAC7441D14E27800230CF3 /* Injector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Injector.swift; sourceTree = "<group>"; };
 		0C7E0838CB946C82B888F7F3 /* Pods-GiphySearchUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiphySearchUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GiphySearchUITests/Pods-GiphySearchUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		36B16EBFDCC5405A55B2E3F8 /* Pods-GiphySearch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiphySearch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GiphySearch/Pods-GiphySearch.debug.xcconfig"; sourceTree = "<group>"; };
@@ -147,7 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				0409FEA41D145707001EBAA3 /* QuickConfig.swift */,
-				045338311D14EA9A00C5239B /* GiphyAPITest.swift */,
+				045338311D14EA9A00C5239B /* HomeViewModelSpecs.swift */,
 				0409FEA61D145707001EBAA3 /* Info.plist */,
 			);
 			path = GiphySearchTests;
@@ -200,8 +200,7 @@
 			children = (
 				0453383B1D14F0A100C5239B /* NotYetReleasedParser.swift */,
 				0453383D1D14FCA300C5239B /* Result.swift */,
-				0453383F1D150DB100C5239B /* Modifiable.swift */,
-				045338411D1512D400C5239B /* RxSwiftExtension.swift */,
+				0423FCBF1D155CEE0084FBD6 /* Cache.swift */,
 			);
 			name = Vendor;
 			sourceTree = "<group>";
@@ -209,6 +208,7 @@
 		04FAC7431D14E22500230CF3 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
+				04F7E5B41D15224300E445DF /* R.generated.swift */,
 				0409FE9B1D145707001EBAA3 /* Info.plist */,
 				0409FE961D145707001EBAA3 /* Assets.xcassets */,
 				0409FE981D145707001EBAA3 /* LaunchScreen.storyboard */,
@@ -248,6 +248,7 @@
 			buildConfigurationList = 0409FEB41D145707001EBAA3 /* Build configuration list for PBXNativeTarget "GiphySearch" */;
 			buildPhases = (
 				026AB329D553DFFFFE366EB1 /* [CP] Check Pods Manifest.lock */,
+				04F7E5B11D15220800E445DF /* R.Swift */,
 				0409FE881D145707001EBAA3 /* Sources */,
 				0409FE891D145707001EBAA3 /* Frameworks */,
 				0409FE8A1D145707001EBAA3 /* Resources */,
@@ -390,6 +391,20 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		04F7E5B11D15220800E445DF /* R.Swift */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = R.Swift;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$PODS_ROOT/R.swift/rswift\" \"$SRCROOT/$PROJECT_NAME\"";
+		};
 		2E12B5C10C26AB770A54745A /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -505,12 +520,12 @@
 				0409FE921D145707001EBAA3 /* HomeViewController.swift in Sources */,
 				04FAC7451D14E27800230CF3 /* Injector.swift in Sources */,
 				0453382E1D14E8B200C5239B /* HomeViewModel.swift in Sources */,
-				045338421D1512D400C5239B /* RxSwiftExtension.swift in Sources */,
 				045338361D14EBD000C5239B /* Giphy.swift in Sources */,
 				0409FE901D145707001EBAA3 /* AppDelegate.swift in Sources */,
-				045338401D150DB100C5239B /* Modifiable.swift in Sources */,
 				045338301D14EA5D00C5239B /* GiphyAPI.swift in Sources */,
+				0423FCC01D155CEE0084FBD6 /* Cache.swift in Sources */,
 				0453383E1D14FCA300C5239B /* Result.swift in Sources */,
+				04F7E5B51D15224300E445DF /* R.generated.swift in Sources */,
 				0453383C1D14F0A100C5239B /* NotYetReleasedParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -519,7 +534,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				045338321D14EA9A00C5239B /* GiphyAPITest.swift in Sources */,
+				045338321D14EA9A00C5239B /* HomeViewModelSpecs.swift in Sources */,
 				0409FEA51D145707001EBAA3 /* QuickConfig.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

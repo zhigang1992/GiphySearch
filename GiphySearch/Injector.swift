@@ -11,7 +11,7 @@ import Swinject
 
 struct Injector {
     static func initialRegisteration(container: Container) {
-        container.register(ViewModel.self) { _ in ViewModel() }
+        container.register(HomeViewModel.self) { _ in HomeViewModel() }
         container.register(NSURLSession.self) { _ in .sharedSession() }
         container.register(GiphyAPIType.self, factory: { _ in GiphyAPI() })
     }
