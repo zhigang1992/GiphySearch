@@ -15,6 +15,7 @@ target 'GiphySearch' do
   pod 'R.swift'
 
   pod 'Swinject'
+  pod 'YYWaterflowLayout'
 
   target 'GiphySearchTests' do
     inherit! :search_paths

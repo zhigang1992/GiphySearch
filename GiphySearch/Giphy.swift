@@ -14,6 +14,16 @@ struct Giphy {
     let slug: String
     let url: String
     let images: String
+    let size: CGSize
+}
+
+extension CGSize: Parsable {
+    static var parser: Parser<CGSize> {
+        let assemable: Double -> Double -> CGSize = curry(self.init)
+        return assemable
+            <^> "width"
+            <*> "height"
+    }
 }
 
 extension Giphy: Parsable {
@@ -23,6 +33,7 @@ extension Giphy: Parsable {
             <*> "slug"
             <*> "url"
             <*> "images.fixed_width.url"
+            <*> "images.fixed_width"
     }
 }
 

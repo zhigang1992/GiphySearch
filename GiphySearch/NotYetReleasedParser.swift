@@ -95,6 +95,15 @@ func optionalParser<T>(parser:Parser<T>) -> Parser<Optional<T>> {
     }
 }
 
+func or<T>(first:Parser<T>, _ second:Parser<T>) -> Parser<T> {
+    return Parser<T> { input in
+        if case .Success(let firstValue) = first.parse(input) {
+            return .Success(firstValue)
+        }
+        return second.parse(input)
+    }
+}
+
 func <^><T:Parsable, U>(left: T->U, key: String ) -> Parser<U> {
     return left <^> dictionaryParser(key: key, parser: T.parser)
 }
@@ -126,18 +135,30 @@ func <*><T:Parsable, U>(left: Parser<Optional<T>->U>, key: String) -> Parser<U> 
     return left <*> optionalParser(dictionaryParser(key: key,parser: T.parser))
 }
 
+infix operator <|> { associativity left }
+func <|><T>(left:Parser<T>, right:Parser<T>) -> Parser<T> {
+    return or(left ,right)
+}
+
 protocol Parsable {
     static var parser: Parser<Self> { get }
 }
 
 extension Double: Parsable {
     static var parser: Parser<Double> {
-        return Parser {
+        let number = Parser<Double> {
             if let number = $0 as? Double {
                 return .Success(number)
             }
             return .Error("\($0) is not an number")
         }
+        let numberString: Parser<Double> = String.parser.flatMap({ string in
+            if let number = Double(string) {
+                return .unit(number)
+            }
+            return .failed("Not a number")
+        })
+        return number <|> numberString
     }
 }
 

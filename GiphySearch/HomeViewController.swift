@@ -9,12 +9,15 @@
 import UIKit
 import RxSwift
 import RxDataSources
+import YYWaterflowLayout
 
-class HomeViewController: UIViewController, UICollectionViewDelegateFlowLayout {
+class HomeViewController: UIViewController, YYWaterflowLayoutDelegate {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
     let searchController = UISearchController(searchResultsController: nil)
+    
+    let waterFlowLayout = YYWaterflowLayout()
     
     let refreshControl = UIRefreshControl()
     
@@ -34,9 +37,16 @@ class HomeViewController: UIViewController, UICollectionViewDelegateFlowLayout {
         self.searchController.dimsBackgroundDuringPresentation = false
         self.searchController.hidesNavigationBarDuringPresentation = false
         
-        self.collectionView.delegate = self
+        self.collectionView.collectionViewLayout = self.waterFlowLayout
+        
         self.collectionView.addSubview(refreshControl)
         self.collectionView.alwaysBounceVertical = true
+        
+        self.waterFlowLayout.delegate = self
+        self.waterFlowLayout.columnMargin = 10
+        self.waterFlowLayout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        self.waterFlowLayout.columnsCount = 2
+        self.waterFlowLayout.rowMargin = 10
         
         let searchBar = self.searchController.searchBar
         self.view.addSubview(searchBar)
@@ -49,9 +59,9 @@ class HomeViewController: UIViewController, UICollectionViewDelegateFlowLayout {
         self.view.addConstraints(constraints)
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let width = (self.view.bounds.width - 30) / 2
-        return CGSize(width: width, height: 200)
+    func waterflowLayout(waterflowLayout: YYWaterflowLayout!, heightForWidth width: CGFloat, atIndexPath indexPath: NSIndexPath!) -> CGFloat {
+        let giphy = self.viewModel.giphys.value[indexPath.row]
+        return giphy.size.height / giphy.size.width * width
     }
     
     private func bindDataToUI() {
@@ -80,6 +90,12 @@ class HomeViewController: UIViewController, UICollectionViewDelegateFlowLayout {
         
         self.refreshControl.rx_controlEvent(.ValueChanged)
             .flatMap({[unowned self] _ in self.viewModel.refresh() })
+            .doOnError({[unowned self] error in
+                self.refreshControl.endRefreshing()
+                let vc = UIAlertController(title: "Error", message: "\(error)", preferredStyle: .Alert)
+                self.presentViewController(vc, animated: true, completion: nil)
+            })
+            .retry()
             .subscribeNext({[unowned self] _ in
                 self.refreshControl.endRefreshing()
             })

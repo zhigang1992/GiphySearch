@@ -14,6 +14,7 @@ PODS:
     - RxSwift (~> 2.2)
   - RxSwift (2.5.0)
   - Swinject (1.1.2)
+  - YYWaterflowLayout (1.0.0)
 
 DEPENDENCIES:
   - Curry
@@ -25,6 +26,7 @@ DEPENDENCIES:
   - RxDataSources
   - RxSwift
   - Swinject
+  - YYWaterflowLayout
 
 SPEC CHECKSUMS:
   Curry: c22d80fff7f5a4b1bbd531455c3e2dbb099658a3
@@ -37,7 +39,8 @@ SPEC CHECKSUMS:
   RxDataSources: 4a87345847d66ef84ecc10bdfa189190f3cd6b12
   RxSwift: 402b41a50e922a0368fc14cb3bc9f4427920e8ae
   Swinject: 3debc5ac926dcd1be00947265a9db7a5f31b272a
+  YYWaterflowLayout: 2d575ed8aabcd3ef545c99b8657c56ba175784ff
 
-PODFILE CHECKSUM: 4d7c346f8a81d9b309bfc6f23697f2500ef5cdd5
+PODFILE CHECKSUM: 28d7730498b9fed2b8324a2e600b2ad86e109085
 
 COCOAPODS: 1.0.1
